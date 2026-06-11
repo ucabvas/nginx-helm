@@ -9,7 +9,7 @@ block from a ConfigMap — no custom image required.
 ## Install
 
 ```bash
-helm install my-nginx ./nginx
+helm install my-nginx ./charts/nginx
 ```
 
 ## Uninstall
@@ -41,19 +41,30 @@ renders a ConfigMap and mounts the relevant files into the container.
 Serve your own landing page:
 
 ```bash
-helm install my-nginx ./nginx \
+helm install my-nginx ./charts/nginx \
   --set-string nginx.staticContent='<h1>Hello world</h1>'
 ```
 
 Use the stock nginx welcome page (no custom content):
 
 ```bash
-helm install my-nginx ./nginx --set nginx.staticContent=null
+helm install my-nginx ./charts/nginx --set nginx.staticContent=null
+```
+
+## Install from the published repo
+
+Releases are published to GitHub Pages by `helm/chart-releaser-action` (see
+`.github/workflows/release.yaml`), triggered by pushing a git tag:
+
+```bash
+helm repo add nginx-helm https://ucabvas.github.io/nginx-helm
+helm repo update
+helm install my-nginx nginx-helm/nginx
 ```
 
 ## Development
 
 ```bash
-helm lint nginx
-helm template nginx nginx
+helm lint charts/nginx
+helm template charts/nginx
 ```
