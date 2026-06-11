@@ -12,14 +12,14 @@ description: A Helm chart that deploys NGINX on Kubernetes
 # pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
 
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
+# Chart version. Kept in lockstep with appVersion (the nginx image tag) so the
+# chart version always tracks the image version it deploys.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.1.0
+version: 1.27.3
 
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Versions are not expected to
-# follow Semantic Versioning. They should reflect the version the application is using.
+# This is the version number of the application being deployed — the nginx image
+# tag. The Deployment uses this as the image tag when image.tag is left empty,
+# so it must be a concrete numeric nginx version (never "latest").
 # It is recommended to use it with quotes.
 appVersion: "1.27.3"
 
