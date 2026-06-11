@@ -1,0 +1,17 @@
+{{- if or .Values.nginx.staticContent .Values.nginx.serverBlock }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "nginx.fullname" . }}
+  labels:
+    {{- include "nginx.labels" . | nindent 4 }}
+data:
+  {{- with .Values.nginx.staticContent }}
+  index.html: |
+    {{- . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.nginx.serverBlock }}
+  default.conf: |
+    {{- . | nindent 4 }}
+  {{- end }}
+{{- end }}
